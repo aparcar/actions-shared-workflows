@@ -17,13 +17,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           fetch-depth: 2
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v35
+        uses: https://github.com/tj-actions/changed-files@v35
 
   determine_changed_packages:
     name: Determine Changed Packages
@@ -34,13 +34,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           sparse-checkout: |
             package
 
       - name: Checkout shared workflows tools
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/actions-shared-workflows
           path: shared-workflows

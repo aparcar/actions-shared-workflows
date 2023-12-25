@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
 
       - name: Parse label
         id: parse_label

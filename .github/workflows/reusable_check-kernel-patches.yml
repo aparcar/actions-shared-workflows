@@ -80,7 +80,7 @@ jobs:
 
     steps:
       - name: Checkout master directory
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           path: openwrt
 
@@ -149,7 +149,7 @@ jobs:
 
       - name: Upload Refreshed Patches
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: https://github.com/actions/upload-artifact@v4
         with:
           name: ${{ inputs.target }}-${{ inputs.subtarget }}-refreshed
           path: openwrt/${{ inputs.target }}-${{ inputs.subtarget }}-refreshed

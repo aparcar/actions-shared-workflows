@@ -85,7 +85,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
 
       - name: Set lower case owner name
         id: lower_owner
@@ -178,7 +178,7 @@ jobs:
 
     steps:
       - name: Checkout master directory
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           path: openwrt
 
@@ -260,7 +260,7 @@ jobs:
 
       - name: Upload fixed Packages
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: https://github.com/actions/upload-artifact@v4
         with:
           name: packages-fixed
           path: openwrt/packages-fixed
@@ -279,34 +279,34 @@ jobs:
 
     steps:
       - name: Checkout master directory
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           path: openwrt
 
       - name: Checkout packages feed
         if: inputs.include_feeds == true
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/packages
           path: openwrt/feeds/packages
 
       - name: Checkout luci feed
         if: inputs.include_feeds == true
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/luci
           path: openwrt/feeds/luci
 
       - name: Checkout routing feed
         if: inputs.include_feeds == true
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/routing
           path: openwrt/feeds/routing
 
       - name: Checkout telephony feed
         if: inputs.include_feeds == true
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/telephony
           path: openwrt/feeds/telephony
@@ -403,7 +403,7 @@ jobs:
       - name: Restore ccache cache
         id: restore-ccache-cache
         if: inputs.use_ccache_cache == true && steps.restore-ccache-cache-s3.outputs.cache-hit != 'true'
-        uses: actions/cache/restore@v3
+        uses: https://github.com/actions/cache/restore@v3
         with:
           path: openwrt/.ccache
           key: ${{ needs.setup_build.outputs.ccache_name }}-${{ hashFiles('openwrt/include/kernel-**') }}
@@ -664,7 +664,7 @@ jobs:
 
       - name: Upload logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: https://github.com/actions/upload-artifact@v4
         with:
           name: ${{ inputs.target }}-${{ inputs.subtarget }}-logs
           path: "openwrt/logs"
@@ -677,7 +677,7 @@ jobs:
       - name: Delete already present ccache cache
         if: steps.restore-ccache-cache.outputs.cache-hit == 'true' && inputs.use_ccache_cache == true  &&
           github.event_name == 'push' && steps.restore-ccache-cache-s3.outputs.cache-hit != 'true'
-        uses: octokit/request-action@v2.x
+        uses: https://github.com/octokit/request-action@v2.x
         with:
           route: DELETE /repos/{repository}/actions/caches?key={key}
         env:
@@ -688,7 +688,7 @@ jobs:
       - name: Save ccache cache
         if: inputs.use_ccache_cache == true && github.event_name == 'push' &&
           steps.restore-ccache-cache-s3.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
+        uses: https://github.com/actions/cache/save@v3
         with:
           path: openwrt/.ccache
           key: ${{ steps.restore-ccache-cache.outputs.cache-primary-key }}
@@ -703,7 +703,7 @@ jobs:
       - name: Upload ccache cache
         if: inputs.use_ccache_cache == true && github.event_name == 'push' &&
           inputs.upload_ccache_cache == true
-        uses: actions/upload-artifact@v4
+        uses: https://github.com/actions/upload-artifact@v4
         with:
           name: ${{ inputs.target }}-${{ inputs.subtarget }}${{ inputs.testing == true && '-testing' || '' }}-ccache-cache
           path: openwrt/${{ needs.setup_build.outputs.ccache_name }}.tar
@@ -719,7 +719,7 @@ jobs:
 
       - name: Upload prebuilt toolchain
         if: inputs.upload_external_toolchain == true
-        uses: actions/upload-artifact@v4
+        uses: https://github.com/actions/upload-artifact@v4
         with:
           name: ${{ inputs.target }}-${{ inputs.subtarget }}-external-toolchain
           path: openwrt/bin/targets/${{ inputs.target }}/${{ inputs.subtarget }}/${{ steps.get-toolchain-name.outputs.toolchain-name }}

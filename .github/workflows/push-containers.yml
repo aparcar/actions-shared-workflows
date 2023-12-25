@@ -65,14 +65,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/actions-shared-workflows
           sparse-checkout: .github/dockerfiles/Dockerfile.tools
           sparse-checkout-cone-mode: false
 
       - name: Download prebuilt tools from build job
-        uses: actions/download-artifact@v4
+        uses: https://github.com/actions/download-artifact@v4
         with:
           name: linux-buildbot-prebuilt-tools
 
@@ -80,14 +80,14 @@ jobs:
         run: tar -xf tools.tar
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: https://github.com/docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: https://github.com/docker/build-push-action@v3
         with:
           context: .
           push: true
@@ -103,7 +103,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
 
       - name: Set targets
         id: find_targets
@@ -164,14 +164,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: https://github.com/actions/checkout@v4
         with:
           repository: openwrt/actions-shared-workflows
           sparse-checkout: .github/dockerfiles/Dockerfile.toolchain
           sparse-checkout-cone-mode: false
 
       - name: Download external toolchain from build job
-        uses: actions/download-artifact@v4
+        uses: https://github.com/actions/download-artifact@v4
         with:
           name: ${{ matrix.target }}-${{ matrix.subtarget }}-external-toolchain
 
@@ -182,14 +182,14 @@ jobs:
           echo "toolchain-name=$TOOLCHAIN_NAME" >> $GITHUB_OUTPUT
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: https://github.com/docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: https://github.com/docker/build-push-action@v3
         with:
           context: .
           push: true
